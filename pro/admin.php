@@ -170,6 +170,7 @@ $fullname =  "System Administrator";
                             ?>">
                                <i class="nav-icon fas">&#8369;</i>
 
+                                <i class="nav-icon fas">&#8369;</i>
                                 <p>
                                     Payments
                                 </p>
