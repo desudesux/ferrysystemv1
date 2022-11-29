@@ -94,7 +94,7 @@ if (!isset($file_access)) die("Direct File Access Denied");
                                         $amount = intval($fee);
                                         echo "V.A.T Charges = ₱$vat<br/><br/><hr/>";
                                         echo "Discounted = ₱$discount<br/><br/><hr/>";
-                                        echo "Total = ₱", $total = 1;
+                                        echo "Total = ₱", $total = 12;
                                         $fee =  ($total) . "00";
                                     $_SESSION['amount'] =  $total;
                                     $_SESSION['original'] =  $fee;

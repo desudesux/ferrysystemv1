@@ -102,9 +102,9 @@ $me = "?page=$source";
                                                 <form action="" method="post">
                                                     <input type="hidden" class="form-control" name="id"
                                                         value="<?php echo $id ?>" required id="">
-                                                    <p>Policy : <input type="text" class="form-control"
-                                                            name="policy" value="<?php echo $fetch['description'] ?>"
-                                                            required minlength="3" id=""></p>
+                                                    <p>Policy : <input type="text" class="form-control" name="policy"
+                                                            value="<?php echo $fetch['description'] ?>" required
+                                                            minlength="3" id=""></p>
                                                     <p>Description : <input type="text" class="form-control" name="name"
                                                             value="<?php echo $fetch['policy'] ?>" required
                                                             minlength="3" id=""></p>
@@ -199,27 +199,20 @@ if (isset($_POST['sendpolicy'])) {
     }
 }
 if (isset($_POST['edit'])) {
-    $name = $_POST['name'];
-    $first_seat = $_POST['first_seat'];
-    $second_seat = $_POST['second_seat'];
-    $id = $_POST['id'];
-    if (!isset($name, $first_seat, $second_seat)) {
+
+    $policy = $_POST['policy'];
+    $desc = $_POST['description'];
+    $id = $_POST['p_id'];
+    if (!isset($policy, $desc, )) {
         alert("Fill Form Properly!");
     } else {
-        $conn = connect();
-        //Check if train exists
-        $check = $conn->query("SELECT * FROM train WHERE name = '$name' ")->num_rows;
-        if ($check == 2) {
-            alert("Train name exists");
-        } else {
-            $ins = $conn->prepare("UPDATE train SET name = ?, first_seat = ?, second_seat = ? WHERE id = ?");
-            $ins->bind_param("sssi", $name, $first_seat, $second_seat, $id);
-            $ins->execute();
-            alert("Train Modified!");
-            load($_SERVER['PHP_SELF'] . "$me");
-        }
+        $ins = $conn->prepare("UPDATE policy SET policy = ?, desc = ? WHERE id = ?");
+        $ins->bind_param("ssi", $policy, $desc, $id);
+        $ins->execute();
+        alert("policy updated");
     }
 }
+
 if (isset($_POST['del_policy'])) {
     $con = connect();
     $conn = $con->query("DELETE FROM train WHERE id = '" . $_POST['del_train'] . "'");
