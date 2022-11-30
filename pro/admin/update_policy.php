@@ -198,27 +198,23 @@ if (isset($_POST['sendpolicy'])) {
 }
 
 if (isset($_POST['edit'])) {
-    $name = $_POST['name'];
-    $first_seat = $_POST['first_seat'];
-    $second_seat = $_POST['second_seat'];
+
+    $policy = $_POST['entry'];
+    $description = $_POST['description'];
     $id = $_POST['id'];
-    if (!isset($name, $first_seat, $second_seat)) {
+    if (!isset($policy, $description, $id )) {
         alert("Fill Form Properly!");
-    } else {
+    }
+     else {
         $conn = connect();
-        //Check if train exists
-        $check = $conn->query("SELECT * FROM train WHERE name = '$name' ")->num_rows;
-        if ($check == 2) {
-            alert("Train name exists");
-        } else {
-            $ins = $conn->prepare("UPDATE train SET name = ?, first_seat = ?, second_seat = ? WHERE id = ?");
-            $ins->bind_param("sssi", $name, $first_seat, $second_seat, $id);
-            $ins->execute();
-            alert("Train Modified!");
-            load($_SERVER['PHP_SELF'] . "$me");
-        }
+        $ins = $conn->prepare("UPDATE policy SET entry = ?, description = ? WHERE id = ?");
+        $ins->bind_param("ssi", $policy, $description, $id);
+        $ins->execute();
+        alert("policy updated");
+        load($_SERVER['PHP_SELF'] . "$me");
     }
 }
+
 if (isset($_POST['del_policy'])) {
     $con = connect();
     $conn = $con->query("DELETE FROM policy WHERE id = '" . $_POST['del_policy'] . "'");
